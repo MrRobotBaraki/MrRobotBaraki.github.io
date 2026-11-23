@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MrRobot.DZ — Software, IT & Digital Media Team</title>
+<meta name="description" content="MrRobot.DZ is an independent technology team from Algeria building websites, web & mobile apps, desktop software, OCR & automation solutions, IT support and promotional video content.">
+<meta property="og:title" content="MrRobot.DZ — Software, IT & Digital Media Team">
+<meta property="og:description" content="Websites, mobile apps, business software, OCR & automation, IT support and promotional video — one team, end to end.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0a0f0d">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230a0f0d'/><text x='50%25' y='58%25' font-family='monospace' font-size='30' font-weight='700' fill='%2334f5a0' text-anchor='middle' dominant-baseline='middle'>&gt;_</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0f0d; --bg2:#0f1613; --card:#121b17; --line:#1f2c26;
+    --text:#e6f2ec; --muted:#8fa59a; --accent:#34f5a0; --accent2:#2bd4ff;
+    --radius:16px; --max:1160px;
+    --mono:'JetBrains Mono',ui-monospace,Consolas,monospace;
+    --sans:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.6;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  img,svg{max-width:100%}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
+  .mono{font-family:var(--mono)}
+  .accent{color:var(--accent)}
+
+  /* background grid */
+  body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background:
+      radial-gradient(ellipse 60% 50% at 80% 0%,rgba(52,245,160,.10),transparent 70%),
+      radial-gradient(ellipse 50% 40% at 0% 30%,rgba(43,212,255,.07),transparent 70%),
+      linear-gradient(var(--bg),var(--bg));
+  }
+  body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.35;
+    background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:48px 48px;mask-image:radial-gradient(ellipse at 50% 0%,#000 20%,transparent 75%);}
+
+  /* nav */
+  header{position:sticky;top:0;z-index:50;backdrop-filter:blur(12px);background:rgba(10,15,13,.75);border-bottom:1px solid var(--line)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .logo{font-family:var(--mono);font-weight:700;font-size:1.15rem;display:flex;align-items:center;gap:10px}
+  .logo .mark{width:34px;height:34px;border-radius:9px;background:var(--accent);color:var(--bg);display:grid;place-items:center;font-size:.9rem}
+  .logo .dz{color:var(--accent)}
+  .links{display:flex;gap:28px;align-items:center;font-size:.93rem;color:var(--muted)}
+  .links a:hover{color:var(--text)}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;font-weight:600;font-size:.95rem;transition:.2s;border:1px solid transparent;cursor:pointer;font-family:inherit}
+  .btn-primary{background:var(--accent);color:#04120b}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 30px -8px rgba(52,245,160,.55)}
+  .btn-ghost{border-color:var(--line);color:var(--text);background:rgba(255,255,255,.02)}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+  .links .btn{padding:9px 18px;color:#04120b}
+  .burger{display:none;background:none;border:1px solid var(--line);color:var(--text);border-radius:10px;width:42px;height:42px;font-size:1.2rem;cursor:pointer}
+
+  /* hero */
+  .hero{padding:96px 0 80px;display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+  .tag{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.8rem;color:var(--accent);border:1px solid rgba(52,245,160,.3);background:rgba(52,245,160,.06);padding:6px 14px;border-radius:999px;margin-bottom:24px}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent);animation:pulse 2s infinite}
+  @keyframes pulse{50%{opacity:.35}}
+  h1{font-size:clamp(2.3rem,5.2vw,4rem);line-height:1.08;letter-spacing:-.03em;font-weight:800;margin-bottom:22px}
+  h1 .grad{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lead{font-size:1.13rem;color:var(--muted);max-width:560px;margin-bottom:34px}
+  .cta{display:flex;gap:14px;flex-wrap:wrap}
+  .chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:36px}
+  .chip{font-family:var(--mono);font-size:.78rem;color:var(--muted);border:1px solid var(--line);padding:5px 12px;border-radius:8px;background:var(--bg2)}
+
+  .terminal{background:#07100c;border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 30px 80px -30px rgba(0,0,0,.8),0 0 0 1px rgba(52,245,160,.05);overflow:hidden}
+  .term-bar{display:flex;gap:7px;padding:13px 16px;border-bottom:1px solid var(--line);background:#0b1511;align-items:center}
+  .term-bar i{width:11px;height:11px;border-radius:50%;background:#2a3832}
+  .term-bar i:nth-child(1){background:#ff5f57}.term-bar i:nth-child(2){background:#febc2e}.term-bar i:nth-child(3){background:#28c840}
+  .term-bar span{margin-left:auto;font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+  .term-body{padding:22px;font-family:var(--mono);font-size:.86rem;min-height:330px;line-height:1.85}
+  .term-body .p{color:var(--accent)}
+  .term-body .c{color:var(--muted)}
+  .term-body .o{color:var(--accent2)}
+  .cursor{display:inline-block;width:8px;height:1.05em;background:var(--accent);vertical-align:text-bottom;animation:blink 1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+
+  /* sections */
+  section{padding:90px 0}
+  .eyebrow{font-family:var(--mono);color:var(--accent);font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}
+  h2{font-size:clamp(1.8rem,3.6vw,2.7rem);letter-spacing:-.02em;line-height:1.15;margin-bottom:16px;font-weight:800}
+  .sub{color:var(--muted);max-width:640px;font-size:1.05rem}
+  .head{margin-bottom:52px}
+  .head.center{text-align:center}.head.center .sub{margin:0 auto}
+
+  /* strip */
+  .strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg2);padding:28px 0}
+  .strip .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .stat b{display:block;font-family:var(--mono);font-size:1.6rem;color:var(--text)}
+  .stat span{color:var(--muted);font-size:.9rem}
+
+  /* cards */
+  .grid{display:grid;gap:22px}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:28px;transition:.25s;position:relative;overflow:hidden}
+  .card:hover{border-color:rgba(52,245,160,.4);transform:translateY(-4px)}
+  .card .ic{width:50px;height:50px;border-radius:12px;display:grid;place-items:center;background:rgba(52,245,160,.08);border:1px solid rgba(52,245,160,.22);margin-bottom:20px}
+  .card .ic svg{width:24px;height:24px;stroke:var(--accent);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .card h3{font-size:1.15rem;margin-bottom:10px}
+  .card p{color:var(--muted);font-size:.94rem}
+  .card ul{list-style:none;margin-top:16px;display:grid;gap:8px}
+  .card li{font-size:.9rem;color:#c3d4cb;padding-left:20px;position:relative}
+  .card li::before{content:"›";position:absolute;left:4px;color:var(--accent);font-weight:700}
+
+  .num{font-family:var(--mono);font-size:.78rem;color:var(--accent);margin-bottom:14px;display:block}
+  .work{display:flex;flex-direction:column}
+  .work .thumb{height:150px;margin:-28px -28px 22px;background:linear-gradient(135deg,#0f2a1f,#0b1a24);display:grid;place-items:center;border-bottom:1px solid var(--line);position:relative}
+  .work .thumb svg{width:56px;height:56px;stroke:var(--accent);fill:none;stroke-width:1.4;opacity:.9}
+  .work .thumb::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(52,245,160,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(52,245,160,.06) 1px,transparent 1px);background-size:20px 20px}
+  .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto;padding-top:18px}
+  .tags span{font-family:var(--mono);font-size:.72rem;color:var(--accent2);background:rgba(43,212,255,.07);border:1px solid rgba(43,212,255,.2);padding:3px 9px;border-radius:6px}
+
+  /* process */
+  .steps{counter-reset:s}
+  .step{border-left:2px solid var(--line);padding:6px 0 6px 26px;position:relative}
+  .step::before{counter-increment:s;content:"0" counter(s);position:absolute;left:-19px;top:0;width:36px;height:36px;border-radius:50%;background:var(--bg);border:2px solid var(--accent);display:grid;place-items:center;font-family:var(--mono);font-size:.75rem;color:var(--accent);font-weight:700}
+  .step h3{font-size:1.08rem;margin:4px 0 8px 10px}
+  .step p{color:var(--muted);font-size:.93rem;margin-left:10px}
+
+  /* team */
+  .unit{display:flex;gap:18px;align-items:flex-start}
+  .unit .avatar{flex:none;width:58px;height:58px;border-radius:14px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;color:#04120b;font-family:var(--mono);font-weight:700}
+  .unit small{font-family:var(--mono);color:var(--accent);font-size:.76rem}
+
+  /* cv */
+  .cv{display:grid;grid-template-columns:1.2fr .8fr;gap:26px}
+  .timeline .item{padding:0 0 4px}
+  .timeline .meta{display:flex;flex-wrap:wrap;gap:10px;font-family:var(--mono);font-size:.78rem;color:var(--muted);margin:6px 0 14px}
+  .timeline .meta span{border:1px solid var(--line);border-radius:6px;padding:2px 9px}
+  .skillgroup{margin-bottom:22px}
+  .skillgroup h4{font-family:var(--mono);font-size:.8rem;color:var(--accent);text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px}
+  .pills{display:flex;flex-wrap:wrap;gap:8px}
+  .pills span{font-size:.84rem;padding:6px 12px;border-radius:999px;background:var(--bg2);border:1px solid var(--line);color:#cfe0d7}
+
+  /* why */
+  .why{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .why .card h3{display:flex;align-items:center;gap:10px}
+
+  /* contact */
+  .contact{background:linear-gradient(135deg,rgba(52,245,160,.10),rgba(43,212,255,.06));border:1px solid rgba(52,245,160,.25);border-radius:24px;padding:56px;display:grid;grid-template-columns:1fr 1fr;gap:48px}
+  .contact .info a{display:flex;align-items:center;gap:12px;margin-top:16px;color:var(--text);font-weight:500;word-break:break-all}
+  .contact .info a svg{width:20px;height:20px;stroke:var(--accent);fill:none;stroke-width:1.8;flex:none}
+  form{display:grid;gap:14px}
+  label{font-size:.82rem;color:var(--muted);font-family:var(--mono)}
+  input,select,textarea{width:100%;background:rgba(7,16,12,.8);border:1px solid var(--line);border-radius:12px;padding:13px 15px;color:var(--text);font-family:inherit;font-size:.95rem;margin-top:6px}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent)}
+  textarea{min-height:120px;resize:vertical}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+  footer{border-top:1px solid var(--line);padding:34px 0;color:var(--muted);font-size:.88rem}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  @media (max-width:980px){
+    .hero{grid-template-columns:1fr;padding-top:64px}
+    .g4{grid-template-columns:repeat(2,1fr)}
+    .g3,.why{grid-template-columns:repeat(2,1fr)}
+    .cv,.contact{grid-template-columns:1fr}
+    .contact{padding:36px}
+    .strip .wrap{grid-template-columns:repeat(2,1fr)}
+  }
+  @media (max-width:760px){
+    .links{display:none;position:absolute;top:68px;left:0;right:0;flex-direction:column;gap:0;background:var(--bg);border-bottom:1px solid var(--line);padding:10px 20px 20px}
+    .links.open{display:flex}
+    .links a{padding:12px 0;width:100%}
+    .links .btn{justify-content:center;margin-top:8px}
+    .burger{display:block}
+    .g4,.g3,.g2,.why{grid-template-columns:1fr}
+    .row2{grid-template-columns:1fr}
+    section{padding:70px 0}
+    .contact{padding:26px}
+    .term-body{font-size:.78rem;min-height:290px}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+
+  /* print = one-click CV / PDF */
+  @media print{
+    body{background:#fff;color:#111}
+    body::before,body::after,header,.terminal,.cta,.contact form,.burger,footer,.no-print{display:none!important}
+    .card,.contact{background:#fff;border:1px solid #ccc;break-inside:avoid}
+    .card p,.sub,.lead,.card li,.stat span{color:#333}
+    .reveal{opacity:1;transform:none}
+    section{padding:24px 0}
+    .hero{padding:20px 0;grid-template-columns:1fr}
+    h1 .grad{color:#0a7a4d;-webkit-text-fill-color:#0a7a4d}
+    .accent,.eyebrow,.num{color:#0a7a4d}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <a href="#top" class="logo"><span class="mark">&gt;_</span><span>MrRobot<span class="dz">.DZ</span></span></a>
+      <div class="links" id="links">
+        <a href="#services">Services</a>
+        <a href="#work">What We Build</a>
+        <a href="#process">Process</a>
+        <a href="#team">Team</a>
+        <a href="#profile">Profile</a>
+        <a href="#contact" class="btn btn-primary">Start a Project</a>
+      </div>
+      <button class="burger" id="burger" aria-label="Open menu">☰</button>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <div class="wrap hero">
+    <div>
+      <div class="tag"><span class="dot"></span>Available for projects &amp; remote collaboration</div>
+      <h1>We turn ideas into <span class="grad">working digital solutions.</span></h1>
+      <p class="lead">MrRobot.DZ is an independent technology team from Algeria. We design and build websites, web &amp; mobile apps, business software, OCR &amp; automation workflows — and the promotional videos that get them noticed.</p>
+      <div class="cta">
+        <a href="#contact" class="btn btn-primary">Start a project →</a>
+        <a href="#services" class="btn btn-ghost">See our capabilities</a>
+      </div>
+      <div class="chips">
+        <span class="chip">Web</span><span class="chip">Android</span><span class="chip">iOS</span><span class="chip">Desktop</span><span class="chip">OCR</span><span class="chip">Automation</span><span class="chip">IT Support</span><span class="chip">Video</span>
+      </div>
+    </div>
+    <div class="terminal reveal" aria-hidden="true">
+      <div class="term-bar"><i></i><i></i><i></i><span>~/mrrobot.dz</span></div>
+      <div class="term-body" id="term"></div>
+    </div>
+  </div>
+
+  <!-- STRIP -->
+  <div class="strip">
+    <div class="wrap">
+      <div class="stat"><b class="accent">4</b><span>Core service divisions</span></div>
+      <div class="stat"><b>End-to-end</b><span>From idea to launch &amp; promotion</span></div>
+      <div class="stat"><b>Remote</b><span>Working with clients worldwide</span></div>
+      <div class="stat"><b>🇩🇿 DZ</b><span>Based in Algeria</span></div>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="wrap">
+      <div class="head reveal">
+        <p class="eyebrow">// What we do</p>
+        <h2>One team. Every layer of your digital product.</h2>
+        <p class="sub">Instead of hiring a developer, an IT technician, a data-entry operator and a video editor separately, you get one team that covers it all — and makes the pieces work together.</p>
+      </div>
+      <div class="grid g4">
+        <div class="card reveal">
+          <div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/><path d="M8 9l-2 1.5L8 12M16 9l2 1.5-2 1.5"/></svg></div>
+          <h3>Software &amp; App Development</h3>
+          <p>Modern, responsive products built for real users.</p>
+          <ul>
+            <li>Websites &amp; web applications</li>
+            <li>Business management systems</li>
+            <li>Desktop software</li>
+            <li>Android &amp; iOS apps</li>
+            <li>Simple games &amp; interactive apps</li>
+            <li>Maintenance &amp; optimization</li>
+          </ul>
+        </div>
+        <div class="card reveal">
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></svg></div>
+          <h3>IT Solutions &amp; Support</h3>
+          <p>Keep your machines and workflows running smoothly.</p>
+          <ul>
+            <li>Computer troubleshooting</li>
+            <li>Software installation &amp; setup</li>
+            <li>System optimization</li>
+            <li>Technical assistance</li>
+            <li>Digital workflow improvement</li>
+          </ul>
+        </div>
+        <div class="card reveal">
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg></div>
+          <h3>OCR, Automation &amp; Documents</h3>
+          <p>Turn paper and PDFs into clean, usable data.</p>
+          <ul>
+            <li>Optical Character Recognition</li>
+            <li>PDF conversion &amp; digitization</li>
+            <li>Data extraction &amp; formatting</li>
+            <li>Typing &amp; transcription</li>
+            <li>Automating repetitive tasks</li>
+          </ul>
+        </div>
+        <div class="card reveal">
+          <div class="ic"><svg viewBox="0 0 24 24"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="M16 10l6-3v10l-6-3z"/></svg></div>
+          <h3>Multimedia &amp; Digital Marketing</h3>
+          <p>Content that makes your brand visible.</p>
+          <ul>
+            <li>Professional video editing</li>
+            <li>Short-form social media videos</li>
+            <li>Ads &amp; sponsored content</li>
+            <li>Social media materials</li>
+            <li>Brand content creation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT WE BUILD -->
+  <section id="work" style="background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+    <div class="wrap">
+      <div class="head reveal">
+        <p class="eyebrow">// What we build</p>
+        <h2>The kind of projects we deliver</h2>
+        <p class="sub">Typical solutions our team designs and ships. Ask us for demos, screenshots or a walkthrough relevant to your project.</p>
+      </div>
+      <div class="grid g3">
+        <article class="card work reveal">
+          <div class="thumb"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M2 7h20M6 21h12M9 17v4M15 17v4"/></svg></div>
+          <span class="num">01 / WEB</span>
+          <h3>Responsive Business Websites</h3>
+          <p>Fast, modern websites optimized for desktop and mobile, with intuitive navigation and a clean user interface that represents your brand.</p>
+          <div class="tags"><span>Responsive</span><span>UI/UX</span><span>SEO-ready</span></div>
+        </article>
+        <article class="card work reveal">
+          <div class="thumb"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+          <span class="num">02 / SOFTWARE</span>
+          <h3>Custom Business Management Software</h3>
+          <p>Desktop and web tools to organize operations, manage records, and simplify everyday administrative tasks.</p>
+          <div class="tags"><span>Desktop</span><span>Database</span><span>Admin</span></div>
+        </article>
+        <article class="card work reveal">
+          <div class="thumb"><svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></svg></div>
+          <span class="num">03 / MOBILE</span>
+          <h3>Android &amp; iOS Applications</h3>
+          <p>Mobile apps with user-friendly interfaces, smooth navigation and practical features that solve a real need.</p>
+          <div class="tags"><span>Android</span><span>iOS</span><span>Mobile UX</span></div>
+        </article>
+        <article class="card work reveal">
+          <div class="thumb"><svg viewBox="0 0 24 24"><path d="M4 7V4h3M20 7V4h-3M4 17v3h3M20 17v3h-3"/><path d="M8 10h8M8 14h5"/></svg></div>
+          <span class="num">04 / OCR</span>
+          <h3>OCR &amp; Document Digitization</h3>
+          <p>OCR-based workflows that extract text from scanned documents and convert it into editable, searchable digital formats.</p>
+          <div class="tags"><span>OCR</span><span>PDF</span><span>Data extraction</span></div>
+        </article>
+        <article class="card work reveal">
+          <div class="thumb"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="10" rx="5"/><path d="M7 10v4M5 12h4M15.5 11h.01M18 13h.01"/></svg></div>
+          <span class="num">05 / GAMES</span>
+          <h3>Simple Games &amp; Interactive Apps</h3>
+          <p>Small interactive games with gameplay mechanics, user controls and visual elements — great for engagement and promotion.</p>
+          <div class="tags"><span>Gameplay</span><span>Interactive</span><span>Casual</span></div>
+        </article>
+        <article class="card work reveal">
+          <div class="thumb"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 8.5v7l6-3.5z"/></svg></div>
+          <span class="num">06 / MEDIA</span>
+          <h3>Promotional Video Production</h3>
+          <p>Short promotional videos and ads built for social media engagement, product visibility and brand promotion.</p>
+          <div class="tags"><span>Reels</span><span>Ads</span><span>Editing</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process">
+    <div class="wrap">
+      <div class="head reveal">
+        <p class="eyebrow">// How we work</p>
+        <h2>A clear process, from first message to launch</h2>
+        <p class="sub">Transparent steps, regular updates, and a working result you can actually use.</p>
+      </div>
+      <div class="grid g4 steps">
+        <div class="step reveal"><h3>Discover</h3><p>We listen to your goals, your users and your constraints, then define the scope together.</p></div>
+        <div class="step reveal"><h3>Design</h3><p>We plan the structure, interface and workflow so you see the solution before it's built.</p></div>
+        <div class="step reveal"><h3>Build &amp; Test</h3><p>Our developers build, test and debug — sharing progress so you stay in control.</p></div>
+        <div class="step reveal"><h3>Launch &amp; Promote</h3><p>We deploy, support you after launch, and can produce the video content to promote it.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section id="team" style="background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+    <div class="wrap">
+      <div class="head reveal">
+        <p class="eyebrow">// The team</p>
+        <h2>Specialized units, one point of contact</h2>
+        <p class="sub">MrRobot.DZ is organized into focused units. You talk to one team — we bring in the right expertise for each part of your project.</p>
+      </div>
+      <div class="grid g2">
+        <div class="card unit reveal"><div class="avatar">DEV</div><div><small>UNIT 01</small><h3>Development</h3><p>Full-stack web, desktop and mobile development, testing and debugging. Builds the products.</p></div></div>
+        <div class="card unit reveal"><div class="avatar">OPS</div><div><small>UNIT 02</small><h3>IT &amp; Systems</h3><p>Troubleshooting, installation, configuration and system administration. Keeps everything running.</p></div></div>
+        <div class="card unit reveal"><div class="avatar">DATA</div><div><small>UNIT 03</small><h3>Automation &amp; Documents</h3><p>OCR, document digitization, data extraction and process automation. Turns paperwork into data.</p></div></div>
+        <div class="card unit reveal"><div class="avatar">LAB</div><div><small>UNIT 04</small><h3>Media Lab</h3><p>Video production, motion graphics, ads and social media content. Gets your product seen.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROFILE / CV -->
+  <section id="profile">
+    <div class="wrap">
+      <div class="head reveal">
+        <p class="eyebrow">// Team profile</p>
+        <h2>Experience &amp; skills</h2>
+        <p class="sub">Our professional profile at a glance. <a href="#" class="accent no-print" onclick="window.print();return false;">Download as PDF ↓</a></p>
+      </div>
+      <div class="cv">
+        <div class="card timeline reveal">
+          <div class="item">
+            <span class="num">EXPERIENCE</span>
+            <h3>MrRobot.DZ — Software Development &amp; IT Solutions Team</h3>
+            <div class="meta"><span>Self-employed</span><span>Algeria · Remote</span><span>Present</span></div>
+            <p>Providing customized software development, technical support and digital solutions for individuals and businesses.</p>
+            <ul>
+              <li>Designing and developing responsive websites and web applications</li>
+              <li>Building desktop applications and customized business software</li>
+              <li>Developing Android and iOS applications</li>
+              <li>Creating simple games and interactive digital experiences</li>
+              <li>Diagnosing and resolving computer hardware and software issues</li>
+              <li>Implementing OCR solutions for document digitization and text extraction</li>
+              <li>Processing PDFs, digital documents and structured data</li>
+              <li>Creating promotional videos, social media ads and short-form content</li>
+              <li>Supporting businesses with digital tools, technical assistance and multimedia</li>
+            </ul>
+            <p style="margin-top:16px">Focused on delivering practical, reliable and user-friendly solutions that address real-world needs.</p>
+          </div>
+        </div>
+        <div class="card reveal">
+          <span class="num">SKILLS</span>
+          <div class="skillgroup">
+            <h4>Software development</h4>
+            <div class="pills"><span>Software Development</span><span>Full-Stack Development</span><span>Web Development</span><span>Mobile Development</span><span>Android</span><span>iOS</span><span>Desktop Applications</span><span>Game Development</span><span>Software Testing</span><span>Debugging</span></div>
+          </div>
+          <div class="skillgroup">
+            <h4>IT &amp; document processing</h4>
+            <div class="pills"><span>Technical Support</span><span>Troubleshooting</span><span>Information Technology</span><span>Software Installation</span><span>System Administration</span><span>OCR</span><span>Document Management</span><span>Data Entry</span><span>Process Automation</span></div>
+          </div>
+          <div class="skillgroup">
+            <h4>Creative &amp; marketing</h4>
+            <div class="pills"><span>Video Editing</span><span>Video Production</span><span>Digital Marketing</span><span>Social Media Marketing</span><span>Content Creation</span><span>Advertising</span><span>Motion Graphics</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="head center reveal">
+        <p class="eyebrow">// Why MrRobot.DZ</p>
+        <h2>Built to solve real problems</h2>
+      </div>
+      <div class="why">
+        <div class="card reveal"><h3><span class="accent mono">01</span> All-in-one team</h3><p>Development, IT, data and media under one roof — fewer handoffs, faster delivery, consistent results.</p></div>
+        <div class="card reveal"><h3><span class="accent mono">02</span> Practical &amp; reliable</h3><p>We focus on solutions people actually use: simple, efficient, user-friendly and maintainable.</p></div>
+        <div class="card reveal"><h3><span class="accent mono">03</span> Remote-ready</h3><p>We collaborate online with clients locally and internationally, with clear communication at every step.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" style="padding-top:20px">
+    <div class="wrap">
+      <div class="contact reveal">
+        <div class="info">
+          <p class="eyebrow">// Let's work together</p>
+          <h2>Have a project in mind?</h2>
+          <p class="sub">Freelance projects, remote collaboration, partnerships or a full-time engagement — tell us what you need and we'll get back to you quickly.</p>
+          <a href="mailto:misterrobot.dz@gmail.com"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>misterrobot.dz@gmail.com</a>
+          <a href="#" onclick="return false" style="cursor:default"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Algeria · Working remotely worldwide</a>
+        </div>
+        <form id="form">
+          <div class="row2">
+            <div><label for="n">Name</label><input id="n" required placeholder="Your name"></div>
+            <div><label for="e">Email</label><input id="e" type="email" required placeholder="you@company.com"></div>
+          </div>
+          <div><label for="s">Service</label>
+            <select id="s">
+              <option>Website / Web App</option><option>Mobile App (Android / iOS)</option><option>Desktop / Business Software</option><option>OCR &amp; Automation</option><option>IT Support</option><option>Video &amp; Digital Marketing</option><option>Job / Hiring opportunity</option><option>Other</option>
+            </select>
+          </div>
+          <div><label for="m">Message</label><textarea id="m" required placeholder="Tell us about your project…"></textarea></div>
+          <button class="btn btn-primary" type="submit" style="justify-content:center">Send message →</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span><span class="mono accent">&gt;_</span> MrRobot.DZ · <span id="yr"></span></span>
+    <span>Software · IT · Automation · Digital Media</span>
+  </div>
+</footer>
+
+<script>
+  // mobile menu
+  const links=document.getElementById('links');
+  document.getElementById('burger').onclick=()=>links.classList.toggle('open');
+  links.querySelectorAll('a').forEach(a=>a.onclick=()=>links.classList.remove('open'));
+
+  document.getElementById('yr').textContent=new Date().getFullYear();
+
+  // reveal on scroll
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // terminal typing
+  const lines=[
+    ['p','$ mrrobot --init project'],
+    ['c','# loading team units...'],
+    ['o','✔ dev      web · desktop · android · ios'],
+    ['o','✔ ops      troubleshooting · systems'],
+    ['o','✔ data     ocr · automation · documents'],
+    ['o','✔ media    video · ads · content'],
+    ['p','$ mrrobot --deliver'],
+    ['c','# idea → design → build → launch'],
+    ['o','✔ ready. let\'s build something valuable.']
+  ];
+  const term=document.getElementById('term');
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let li=0,ci=0,cur;
+  function type(){
+    if(li>=lines.length){term.insertAdjacentHTML('beforeend','<span class="p">$ </span><span class="cursor"></span>');return}
+    if(ci===0){cur=document.createElement('div');cur.className=lines[li][0];term.appendChild(cur)}
+    const t=lines[li][1];
+    if(reduce){cur.textContent=t;li++;ci=0;return type()}
+    cur.textContent=t.slice(0,++ci);
+    if(ci>=t.length){li++;ci=0;setTimeout(type,lines[li-1][0]==='p'?380:160)}
+    else setTimeout(type,lines[li][0]==='p'?45:14);
+  }
+  setTimeout(type,500);
+
+  // contact form -> opens email client (no backend needed on GitHub Pages)
+  document.getElementById('form').onsubmit=e=>{
+    e.preventDefault();
+    const n=document.getElementById('n').value,em=document.getElementById('e').value,s=document.getElementById('s').value,m=document.getElementById('m').value;
+    const body=`Name: ${n}\nEmail: ${em}\nService: ${s}\n\n${m}`;
+    location.href=`mailto:misterrobot.dz@gmail.com?subject=${encodeURIComponent('[MrRobot.DZ] '+s+' — '+n)}&body=${encodeURIComponent(body)}`;
+  };
+</script>
+</body>
+</html>
